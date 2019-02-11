@@ -1,0 +1,15 @@
+{
+  "name": "blogen",
+  "version": "1.0.0",
+  "description": "A simple CRUD application site where users can post blogs and share them with others",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Madeleine Woodbury",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0"
+  }
+}
