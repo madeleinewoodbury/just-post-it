@@ -1,7 +1,13 @@
 <!-- ACTIONS -->
 <section id="actions" class="py-4 mb-4 bg-light">
   <div class="container">
-    <div class="row"></div>
+    <div class="row">
+      {{#each errors}}
+      <div class=" col alert alert-danger">
+        {{text}}
+      </div>
+      {{/each}}
+    </div>
   </div>
 </section>
 
@@ -15,24 +21,24 @@
             <h4>Account Register</h4>
           </div>
           <div class="card-body">
-            <form action="/user/login">
+            <form action="/user/register" method="post">
               <div class="form-group">
                 <label for="name">Name</label>
-                <input id="name" type="text" class="form-control" />
+                <input name="name" type="text" class="form-control" value="{{name}}" required />
               </div>
               <div class="form-group">
                 <label for="email">Email</label>
-                <input id="email" type="email" class="form-control" />
+                <input name="email" type="email" class="form-control" value="{{email}}" required />
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
-                <input id="password" type="password" class="form-control" />
+                <input name="password" type="password" class="form-control" required />
               </div>
               <div class="form-group">
                 <label for="password2">Confirm Password</label>
-                <input id="password2" type="password" class="form-control" />
+                <input name="password2" type="password" class="form-control" required />
               </div>
-              <input type="submit" value="Register" class="btn btn-success btn-block" />
+              <input type="submit" value="Register" class="btn btn-success btn-block" required />
             </form>
           </div>
         </div>
