@@ -1,7 +1,7 @@
 <!-- ACTIONS -->
 <section id="actions" class="py-4 mb-4 bg-light">
   <div class="container">
-    <div class="row"></div>
+    {{> _msg}}
   </div>
 </section>
 
@@ -15,14 +15,14 @@
             <h4>Account Login</h4>
           </div>
           <div class="card-body">
-            <form action="index.html">
+            <form action="/user/login" method="post">
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" />
+                <input type="email" class="form-control" name="email" />
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" />
+                <input type="password" class="form-control" name="password" />
               </div>
               <input type="submit" value="Login" class="btn btn-primary btn-block" />
             </form>
