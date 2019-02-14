@@ -1,33 +1,33 @@
 const express = require("express");
 const router = express.Router();
+const { ensureAuthenticated } = require("../helpers/auth");
 
-// Home/Landing Page Route
-router.get("/home", (req, res) => {
-  res.render("home");
-});
-
-// Dashboard Route
+// Landing Page/Dashboard Route
 router.get("/", (req, res) => {
-  res.render("index/dashboard");
+  if (req.user) {
+    res.render("index/dashboard");
+  } else {
+    res.render("home");
+  }
 });
 
 // Users Route
-router.get("/users", (req, res) => {
+router.get("/users", ensureAuthenticated, (req, res) => {
   res.render("index/users");
 });
 
 // Posts Route
-router.get("/posts", (req, res) => {
+router.get("/posts", ensureAuthenticated, (req, res) => {
   res.render("index/posts");
 });
 
 // Categories Route
-router.get("/categories", (req, res) => {
+router.get("/categories", ensureAuthenticated, (req, res) => {
   res.render("index/categories");
 });
 
 // Profile Route
-router.get("/profile", (req, res) => {
+router.get("/profile", ensureAuthenticated, (req, res) => {
   res.render("index/profile");
 });
 
