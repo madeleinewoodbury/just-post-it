@@ -27,11 +27,6 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-// Profile Route
-router.get("/", (req, res) => {
-  res.render("user/profile");
-});
-
 // Process Register Form Route
 router.post("/register", (req, res) => {
   // Server side validation
@@ -93,6 +88,13 @@ router.post("/register", (req, res) => {
       }
     });
   }
+});
+
+// Logout User
+router.get("/logout", (req, res) => {
+  req.logout();
+  req.flash("success_msg", "You are logged out");
+  res.redirect("/user/login");
 });
 
 module.exports = router;

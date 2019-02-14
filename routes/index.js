@@ -26,4 +26,9 @@ router.get("/categories", (req, res) => {
   res.render("index/categories");
 });
 
+// Profile Route
+router.get("/profile", (req, res) => {
+  res.render("index/profile");
+});
+
 module.exports = router;
