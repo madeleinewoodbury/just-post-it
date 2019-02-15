@@ -152,38 +152,34 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action="/post/add" method="post">
           <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" />
+            <input type="text" name="title" class="form-control" />
           </div>
           <div class="form-group">
             <label for="category">Category</label>
-            <select class="form-control">
-              <option value="">Web Devlopment</option>
-              <option value="">Tech Gadgets</option>
-              <option value="">Business</option>
-              <option value="">Health & Wellness</option>
+            <select name="category" class="form-control">
+              <option value="Web Devlopment">Web Devlopment</option>
+              <option value="Tech Gadgets">Tech Gadgets</option>
+              <option value="Business">Business</option>
+              <option value="Health & Wellness">Health & Wellness</option>
             </select>
           </div>
           <div class="form-group">
             <label for="image">Upload Image</label>
             <div class="custom-file">
-              <input type="file" id="image" class="custom-file-input" />
+              <input name="image" type="file" id="image" class="custom-file-input" />
               <label for="image" class="custom-file-label">Choose File</label>
             </div>
             <small class="form-text text-muted">Max size 3MB</small>
           </div>
           <div class="form-group">
             <label for="body">Body</label>
-            <textarea name="editor1" class="form-control"></textarea>
+            <textarea id="editor" name="body" class="form-control"></textarea>
           </div>
+          <input type="submit" value="Post It" class="btn btn-success">
         </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-success" data-dismiss="modal">
-          Save Changes
-        </button>
       </div>
     </div>
   </div>

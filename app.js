@@ -12,6 +12,7 @@ const app = express();
 // Load Routes
 const index = require("./routes/index");
 const user = require("./routes/user");
+const post = require("./routes/post");
 
 // Passport Config
 require("./config/passport")(passport);
@@ -67,6 +68,7 @@ app.use((req, res, next) => {
 // Use Routes
 app.use("/", index);
 app.use("/user", user);
+app.use("/post", post);
 
 const port = 5500;
 app.listen(port, () => console.log(`Server started on port ${port}...`));
