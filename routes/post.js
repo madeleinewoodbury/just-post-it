@@ -3,12 +3,14 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const { ensureAuthenticated } = require("../helpers/auth");
 
-// Load Post  Modle
+// Load Models
 require("../models/Post");
 const Post = mongoose.model("posts");
+require("../models/User");
+const User = mongoose.model("users");
 
 // Process Add Post Form
-router.post("/add", (req, res) => {
+router.post("/add", ensureAuthenticated, (req, res) => {
   const newPost = new Post({
     title: req.body.title,
     category: req.body.category,

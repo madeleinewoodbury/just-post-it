@@ -49,11 +49,12 @@
               </tr>
             </thead>
             <tbody>
+              {{#each postsß}}
               <tr>
                 <td>1</td>
-                <td>Post One</td>
-                <td>Web Development</td>
-                <td>July 14 2018</td>
+                <td>{{title}}</td>
+                <td>{{category}}</td>
+                <td>{{formatDate date 'MMMM Do YYYY'}}</td>
                 <td>
                   <div class="row justify-content-end mr-3">
                     <a class="btn btn-secondary mr-2" href="#">
@@ -63,76 +64,7 @@
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>Post Two</td>
-                <td>Tech Gadgets</td>
-                <td>July 20 2018</td>
-                <td>
-                  <div class="row justify-content-end mr-3">
-                    <a class="btn btn-secondary mr-2" href="#">
-                      <i class="fas fa-pencil-alt"></i> Edit</a>
-                    <a class="btn btn-danger mr-2" href="#">
-                      <i class="fas fa-pencil-trash"></i> Delete</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Post Three</td>
-                <td>Web Development</td>
-                <td>August 2 2018</td>
-                <td>
-                  <div class="row justify-content-end mr-3">
-                    <a class="btn btn-secondary mr-2" href="#">
-                      <i class="fas fa-pencil-alt"></i> Edit</a>
-                    <a class="btn btn-danger mr-2" href="#">
-                      <i class="fas fa-pencil-trash"></i> Delete</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Post Four</td>
-                <td>Business</td>
-                <td>August 12 2018</td>
-                <td>
-                  <div class="row justify-content-end mr-3">
-                    <a class="btn btn-secondary mr-2" href="#">
-                      <i class="fas fa-pencil-alt"></i> Edit</a>
-                    <a class="btn btn-danger mr-2" href="#">
-                      <i class="fas fa-pencil-trash"></i> Delete</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>Post Five</td>
-                <td>Web Development</td>
-                <td>August 22 2018</td>
-                <td>
-                  <div class="row justify-content-end mr-3">
-                    <a class="btn btn-secondary mr-2" href="#">
-                      <i class="fas fa-pencil-alt"></i> Edit</a>
-                    <a class="btn btn-danger mr-2" href="#">
-                      <i class="fas fa-pencil-trash"></i> Delete</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>Post Six</td>
-                <td>Health & Wellness</td>
-                <td>September 3 2018</td>
-                <td>
-                  <div class="row justify-content-end mr-3">
-                    <a class="btn btn-secondary mr-2" href="#">
-                      <i class="fas fa-pencil-alt"></i> Edit</a>
-                    <a class="btn btn-danger mr-2" href="#">
-                      <i class="fas fa-pencil-trash"></i> Delete</a>
-                  </div>
-                </td>
-              </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>

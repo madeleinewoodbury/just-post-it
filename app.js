@@ -17,6 +17,9 @@ const post = require("./routes/post");
 // Passport Config
 require("./config/passport")(passport);
 
+// Handlebars Helpers
+const { formatDate } = require("./helpers/hbs");
+
 // DB Config & Connect to mongoose
 // const db = require("./config/database");
 mongoose
@@ -27,7 +30,15 @@ mongoose
   .catch(err => console.log(err));
 
 // Handlebars Middleware
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.engine(
+  "handlebars",
+  exphbs({
+    helpers: {
+      formatDate: formatDate
+    },
+    defaultLayout: "main"
+  })
+);
 app.set("view engine", "handlebars");
 
 // Body Parser Middleware
