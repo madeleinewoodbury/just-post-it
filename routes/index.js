@@ -26,9 +26,4 @@ router.get("/categories", ensureAuthenticated, (req, res) => {
   res.render("index/categories");
 });
 
-// Profile Route
-router.get("/profile", ensureAuthenticated, (req, res) => {
-  res.render("index/profile");
-});
-
 module.exports = router;

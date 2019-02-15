@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const router = express.Router();
+const { ensureAuthenticated } = require("../helpers/auth");
 
 // Load User Model
 require("../models/User");
@@ -95,6 +96,25 @@ router.get("/logout", (req, res) => {
   req.logout();
   req.flash("success_msg", "You are logged out");
   res.redirect("/user/login");
+});
+
+// Profile Route
+router.get("/profile", ensureAuthenticated, (req, res) => {
+  res.render("user/profile");
+});
+
+// Edit User Process
+router.put("/profile/edit", ensureAuthenticated, (req, res) => {
+  User.findOne({ email: req.user.email }).then(user => {
+    // New values
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.bio = req.body.bio;
+
+    user.save().then(user => {
+      res.redirect("/");
+    });
+  });
 });
 
 module.exports = router;

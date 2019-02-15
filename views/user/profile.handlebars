@@ -42,21 +42,23 @@
             <h4>Edit Profile</h4>
           </div>
           <div class="card-body">
-            <form>
+            <form action="/user/profile/edit/?_method=PUT" method="post">
+              <input type="hidden" name="_method" value="PUT">
               <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" value="username" />
+                <input type="text" class="form-control" name="name" value="{{user.name}}" />
               </div>
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" value="test@email.com" />
+                <input type="email" class="form-control" name="email" value="{{user.email}}" />
               </div>
               <div class="form-group">
                 <label for="bio">Bio</label>
-                <textarea class="form-control" name="editor1">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ad voluptate excepturi sapiente eos perferendis velit odio, quis iusto at itaque odit soluta cumque. Doloribus, assumenda id suscipit impedit dolore ab incidunt saepe blanditiis consequatur libero odio quasi dolores officiis.
+                <textarea class="form-control" id="editor" name="bio">
+                  {{user.bio}}
                 </textarea>
               </div>
+              <input type="submit" value="Save Changes" class="btn btn-primary">
             </form>
           </div>
         </div>
