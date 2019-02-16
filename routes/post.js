@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const { ensureAuthenticated } = require("../helpers/auth");
+const Categories = require("../models/Category");
 
 // Load Models
 require("../models/Post");
@@ -49,7 +50,8 @@ router.get("/edit/:id", ensureAuthenticated, (req, res) => {
   Post.findOne({ _id: req.params.id })
     .then(post => {
       res.render("posts/edit", {
-        post: post
+        post: post,
+        Categories: Categories
       });
     })
     .catch(err => {
@@ -80,6 +82,7 @@ router.delete("/:id", ensureAuthenticated, (req, res) => {
   });
 });
 
+// Show Public Posts Route
 router.get("/public", ensureAuthenticated, (req, res) => {
   Post.find()
     .populate("user")

@@ -25,7 +25,9 @@ const {
   stripTags,
   numberOfPosts,
   numberOfUsers,
-  numberOfCategories
+  numberOfCategories,
+  registeredUsers,
+  arrLength
 } = require("./helpers/hbs");
 
 // DB Config & Connect to mongoose
@@ -48,7 +50,9 @@ app.engine(
       stripTags: stripTags,
       numberOfPosts: numberOfPosts,
       numberOfUsers: numberOfUsers,
-      numberOfCategories: numberOfCategories
+      numberOfCategories: numberOfCategories,
+      registeredUsers: registeredUsers,
+      arrLength: arrLength
     },
     defaultLayout: "main"
   })

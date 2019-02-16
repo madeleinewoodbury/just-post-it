@@ -41,10 +41,9 @@
                 <label for="category">Category</label>
                 <select name="category" class="form-control">
                   {{#select post.category}}
-                  <option value="Web Devlopment">Web Devlopment</option>
-                  <option value="Tech Gadgets">Tech Gadgets</option>
-                  <option value="Business">Business</option>
-                  <option value="Health & Wellness">Health & Wellness</option>
+                  {{#each Categories}}
+                  <option value="{{name}}">{{name}}</option>
+                  {{/each}}
                   {{/select}}
                 </select>
               </div>

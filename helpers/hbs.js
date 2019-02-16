@@ -1,4 +1,7 @@
 const moment = require("moment");
+const mongoose = require("mongoose");
+require("../models/User");
+const User = mongoose.model("users");
 
 module.exports = {
   formatDate: function(date, format) {
@@ -38,5 +41,17 @@ module.exports = {
       categories.add(post.category);
     }
     return categories.size;
+  },
+  registeredUsers: function() {
+    let numOfUsers;
+    User.find().then(users => {
+      for (let user of users) {
+        numOfUsers++;
+      }
+      return numOfUsers;
+    });
+  },
+  arrLength: function(arr) {
+    return arr.length;
   }
 };

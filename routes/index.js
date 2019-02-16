@@ -2,10 +2,13 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const { ensureAuthenticated } = require("../helpers/auth");
+const Categories = require("../models/Category");
 
 // Load Post Model
 require("../models/Post");
 const Post = mongoose.model("posts");
+require("../models/User");
+const User = mongoose.model("users");
 
 // Landing Page/Dashboard Route
 router.get("/", (req, res) => {
@@ -16,11 +19,22 @@ router.get("/", (req, res) => {
       .sort({ date: "desc" })
       .then(posts => {
         res.render("index/dashboard", {
-          posts: posts
+          posts: posts,
+          Categories: Categories
         });
       });
   } else {
-    res.render("home");
+    Post.find().then(posts => {
+      const numOfPosts = posts.length;
+      User.find().then(users => {
+        const numOfUsers = users.length;
+        res.render("home", {
+          numOfPosts: numOfPosts,
+          numOfUsers: numOfUsers,
+          Categories: Categories
+        });
+      });
+    });
   }
 });
 
