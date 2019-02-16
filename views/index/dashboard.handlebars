@@ -49,15 +49,15 @@
               </tr>
             </thead>
             <tbody>
-              {{#each postsß}}
+              {{#each posts}}
               <tr>
-                <td>1</td>
+                <td>{{postIndex @index}}</td>
                 <td>{{title}}</td>
                 <td>{{category}}</td>
                 <td>{{formatDate date 'MMMM Do YYYY'}}</td>
                 <td>
                   <div class="row justify-content-end mr-3">
-                    <a class="btn btn-secondary mr-2" href="#">
+                    <a class="btn btn-secondary mr-2" href="/post/edit/{{id}}">
                       <i class="fas fa-pencil-alt"></i> Edit</a>
                     <a class="btn btn-danger mr-2" href="#">
                       <i class="fas fa-pencil-trash"></i> Delete</a>

@@ -32,4 +32,33 @@ router.post("/add", ensureAuthenticated, (req, res) => {
     });
 });
 
+// Edit Post Route
+router.get("/edit/:id", ensureAuthenticated, (req, res) => {
+  Post.findOne({ _id: req.params.id })
+    .then(post => {
+      res.render("posts/edit", {
+        post: post
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+// Process Edit Route
+router.put("/edit/:id", ensureAuthenticated, (req, res) => {
+  Post.findOne({
+    _id: req.params.id
+  }).then(post => {
+    // New values
+    (post.title = req.body.title),
+      (post.category = req.body.category),
+      (post.body = req.body.body);
+
+    post.save().then(post => {
+      res.redirect("/");
+    });
+  });
+});
+
 module.exports = router;
