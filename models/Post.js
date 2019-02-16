@@ -13,7 +13,8 @@ const PostSchema = new Schema({
   },
   image: {
     type: String,
-    required: false
+    default:
+      "https://news.nationalgeographic.com/content/dam/news/2018/05/17/you-can-train-your-cat/02-cat-training-NationalGeographic_1484324.ngsversion.1526587209178.adapt.1900.1.jpg"
   },
   body: {
     type: String,

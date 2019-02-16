@@ -1,0 +1,8 @@
+.post-link {
+  color: black;
+}
+
+.post-link:hover {
+  text-decoration: none;
+  color: #28a745;
+}

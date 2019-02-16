@@ -52,7 +52,7 @@
               {{#each posts}}
               <tr>
                 <td>{{postIndex @index}}</td>
-                <td>{{title}}</td>
+                <td><a class="post-link" href="/post/show/{{id}}">{{title}}</a></td>
                 <td>{{category}}</td>
                 <td>{{formatDate date 'MMMM Do YYYY'}}</td>
                 <td>

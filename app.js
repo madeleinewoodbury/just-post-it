@@ -18,7 +18,15 @@ const post = require("./routes/post");
 require("./config/passport")(passport);
 
 // Handlebars Helpers
-const { formatDate, postIndex, select } = require("./helpers/hbs");
+const {
+  formatDate,
+  postIndex,
+  select,
+  stripTags,
+  numberOfPosts,
+  numberOfUsers,
+  numberOfCategories
+} = require("./helpers/hbs");
 
 // DB Config & Connect to mongoose
 // const db = require("./config/database");
@@ -36,7 +44,11 @@ app.engine(
     helpers: {
       formatDate: formatDate,
       postIndex: postIndex,
-      select: select
+      select: select,
+      stripTags: stripTags,
+      numberOfPosts: numberOfPosts,
+      numberOfUsers: numberOfUsers,
+      numberOfCategories: numberOfCategories
     },
     defaultLayout: "main"
   })

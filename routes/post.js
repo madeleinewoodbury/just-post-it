@@ -9,22 +9,34 @@ const Post = mongoose.model("posts");
 require("../models/User");
 const User = mongoose.model("users");
 
+// Show Single Post Route
+router.get("/show/:id", ensureAuthenticated, (req, res) => {
+  Post.findOne({ _id: req.params.id })
+    .populate("user")
+    .then(post => {
+      res.render("posts/show", { post: post });
+    })
+    .catch(err => console.log(err));
+});
+
 // Process Add Post Form
 router.post("/add", ensureAuthenticated, (req, res) => {
   const newPost = new Post({
     title: req.body.title,
     category: req.body.category,
-    image: req.body.image,
     body: req.body.body,
     user: req.user.id
   });
 
-  console.log(newPost);
+  if (req.body.image) {
+    newPost.image = req.body.image;
+  }
+
   newPost
     .save()
     .then(post => {
       req.flash("success_msg", "Post submitted");
-      res.redirect("/user/login");
+      res.redirect("/");
     })
     .catch(err => {
       console.log(err);
@@ -66,6 +78,15 @@ router.delete("/:id", ensureAuthenticated, (req, res) => {
   Post.deleteOne({ _id: req.params.id }).then(() => {
     res.redirect("/");
   });
+});
+
+router.get("/public", ensureAuthenticated, (req, res) => {
+  Post.find()
+    .populate("user")
+    .sort({ date: "desc" })
+    .then(posts => {
+      res.render("index/posts", { posts: posts });
+    });
 });
 
 module.exports = router;
