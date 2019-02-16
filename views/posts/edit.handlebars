@@ -56,7 +56,7 @@
               </div>
               <div class="row">
                 <button type="submit" class="ml-3 btn btn-success"><i class="fas fa-save"></i> Save Changes </button>
-                <a href="#" class="btn btn-danger ml-3">
+                <a href="#" class="btn btn-danger ml-3" data-toggle="modal" data-target="#deletePostModal">
                   <i class="fas fa-trash"></i> Delete Post
                 </a>
               </div>
@@ -73,3 +73,27 @@
     </div>
   </div>
 </section>
+
+<!-- Delete Post Modal -->
+<div class="modal fade" id="deletePostModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">Delete Post</h5>
+        <button class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/post/{{post.id}}?_method=DELETE" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <p class="py-2">Are you sure you want to delete this post?</p>
+          <input type="submit" value="Delete" class="btn btn-danger">
+          <button class="btn btn-secondary ml-2" data-dismiss="modal">
+            Go Back
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

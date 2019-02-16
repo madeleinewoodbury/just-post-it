@@ -61,4 +61,11 @@ router.put("/edit/:id", ensureAuthenticated, (req, res) => {
   });
 });
 
+// Delete Post
+router.delete("/:id", ensureAuthenticated, (req, res) => {
+  Post.deleteOne({ _id: req.params.id }).then(() => {
+    res.redirect("/");
+  });
+});
+
 module.exports = router;
