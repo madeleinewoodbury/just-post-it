@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const { ensureAuthenticated } = require("../helpers/auth");
 const Categories = require("../models/Category");
+require("dotenv/config");
 
 // Load Post Model
 require("../models/Post");

@@ -32,11 +32,14 @@ const {
 } = require("./helpers/hbs");
 
 const db = require("./config/database");
+// const mongoURI = "mongodb://localhost/blogen-dev";
 mongoose
   .connect(db.mongoURI, {
     useNewUrlParser: true
   })
-  .then(() => console.log("MongoDB connected..."))
+  .then(() => {
+    console.log("MongoDB connected...");
+  })
   .catch(err => console.log(err));
 
 // Handlebars Middleware
