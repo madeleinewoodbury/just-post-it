@@ -13,6 +13,7 @@ const app = express();
 const index = require("./routes/index");
 const user = require("./routes/user");
 const post = require("./routes/post");
+const upload = require("./routes/upload");
 
 // Passport Config
 require("./config/passport")(passport);
@@ -30,10 +31,9 @@ const {
   arrLength
 } = require("./helpers/hbs");
 
-// DB Config & Connect to mongoose
-// const db = require("./config/database");
+const db = require("./config/database");
 mongoose
-  .connect("mongodb://localhost/blogen-dev", {
+  .connect(db.mongoURI, {
     useNewUrlParser: true
   })
   .then(() => console.log("MongoDB connected..."))
@@ -94,10 +94,15 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/upload", (req, res) => {
+  res.render("upload");
+});
+
 // Use Routes
 app.use("/", index);
 app.use("/user", user);
 app.use("/post", post);
+app.use("/upload", upload);
 
 const port = 5500;
 app.listen(port, () => console.log(`Server started on port ${port}...`));

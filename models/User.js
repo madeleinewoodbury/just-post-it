@@ -20,9 +20,11 @@ const UserSchema = new Schema({
     required: false
   },
   image: {
-    type: String,
-    default:
-      "https://sohe.wisc.edu/wordpress/wp-content/uploads/Male-Avatar.png"
+    type: {
+      String,
+      default:
+        "https://sohe.wisc.edu/wordpress/wp-content/uploads/Male-Avatar.png"
+    }
   },
   date: {
     type: Date,
