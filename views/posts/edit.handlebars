@@ -69,13 +69,42 @@
       <div class="col-md-3">
         {{#if post.image}}
         <img src="{{post.image}}" alt="avatar" class="d-block img-fluid mb-3" />
-        <button class="btn btn-secondary btn-block"><i class="fas fa-file-image"></i> Edit Image</button>
+        <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#editImageModal"><i
+            class="fas fa-file-image"></i> Edit Image</button>
         <button class="btn btn-danger btn-block"><i class="fas fa-trash"></i> Delete Image</button>
         {{/if}}
       </div>
     </div>
   </div>
 </section>
+
+<!-- Edit Image Modal -->
+<div class="modal fade" id="editImageModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-secondary text-white">
+        <h5 class="modal-title">Edit Image</h5>
+        <button class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/upload/edit/post/image/{{post.id}}?_method=PUT" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="_method" value="put">
+          <div class="custom-file mb-3">
+            <input type="file" name="image" id="file" class="custom-file-input">
+            <label for="file" class="custom-file-label">Choose Image</label>
+            <small class="form-text text-muted">Max size 3MB</small>
+          </div>
+          <input type="submit" value="Save Changes" class="btn btn-success">
+          <button class="btn btn-secondary ml-2" data-dismiss="modal">
+            Go Back
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Delete Post Modal -->
 <div class="modal fade" id="deletePostModal">
