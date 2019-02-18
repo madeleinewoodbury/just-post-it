@@ -134,4 +134,19 @@ router.put(
   }
 );
 
+router.delete("/post/image/:id", ensureAuthenticated, (req, res) => {
+  Post.findById(req.params.id, async function(err, post) {
+    cloudinary.v2.api.delete_resources(post.image, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      post.image = "";
+      post.save().then(post => {
+        console.log(post.image);
+        res.render("posts/edit", { post: post, Categories: Categories });
+      });
+    });
+  });
+});
+
 module.exports = router;

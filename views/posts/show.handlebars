@@ -32,21 +32,27 @@
 <section id="show-post">
   <div class="container">
     <div class="row">
+      {{#if post.image}}
       <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">
-            <h4>By: {{post.user.name}}</h4>
-            <small class="text-muted">{{formatDate post.date 'MMMM Do YYYY'}}</small>
-          </div>
+        {{else}}
+        <div class="col">
+          {{/if}}
+          <div class="card">
+            <div class="card-header">
+              <h4>By: {{post.user.name}}</h4>
+              <small class="text-muted">{{formatDate post.date 'MMMM Do YYYY'}}</small>
+            </div>
 
-          <div class="card-body">
-            <p>{{stripTags post.body}}</p>
+            <div class="card-body">
+              <p>{{stripTags post.body}}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <img src="{{post.image}}" class="card-img">
+        {{#if post.image}}
+        <div class="col-md-4">
+          <img src="{{post.image}}" class="card-img">
+        </div>
+        {{/if}}
       </div>
     </div>
-  </div>
 </section>

@@ -15,7 +15,6 @@ router.get("/show/:id", ensureAuthenticated, (req, res) => {
   Post.findOne({ _id: req.params.id })
     .populate("user")
     .then(post => {
-      console.log(post.image);
       res.render("posts/show", { post: post });
     })
     .catch(err => console.log(err));
