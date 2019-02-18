@@ -65,7 +65,7 @@
       </div>
       <div class="col-md-3">
         <h3>Your Avatar</h3>
-        <img src="/uploads/{{user.image}}" alt="avatar" class="d-block img-fluid mb-3" />
+        <img src="{{image.path}}" alt="avatar" class="d-block img-fluid mb-3" />
         <a href="#" data-toggle="modal" data-target="#editImageModal" class="btn btn-primary btn-block">Edit Image</a>
         <a href="#" class="btn btn-danger btn-block">Delete Image</a>
       </div>
@@ -84,9 +84,9 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/upload" method="post" enctype="multipart/form-data">
+        <form action="/upload/image" method="post" enctype="multipart/form-data">
           <div class="custom-file mb-3">
-            <input type="file" name="imageFile" id="file" class="custom-file-input">
+            <input type="file" name="image" id="file" class="custom-file-input">
             <label for="file" class="custom-file-label">Choose Image</label>
             <small class="form-text text-muted">Max size 3MB</small>
           </div>

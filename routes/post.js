@@ -15,35 +15,37 @@ router.get("/show/:id", ensureAuthenticated, (req, res) => {
   Post.findOne({ _id: req.params.id })
     .populate("user")
     .then(post => {
+      console.log(post.image);
       res.render("posts/show", { post: post });
     })
     .catch(err => console.log(err));
 });
 
 // Process Add Post Form
-router.post("/add", ensureAuthenticated, (req, res) => {
-  const newPost = new Post({
-    title: req.body.title,
-    category: req.body.category,
-    body: req.body.body,
-    user: req.user.id
-  });
+// router.post("/add", ensureAuthenticated, (req, res) => {
+//   const newPost = new Post({
+//     title: req.body.title,
+//     category: req.body.category,
+//     image: req.body.image,
+//     body: req.body.body,
+//     user: req.user.id
+//   });
 
-  if (req.body.image) {
-    newPost.image = req.body.image;
-  }
+//   if (req.body.image) {
+//     newPost.image = req.body.image;
+//   }
 
-  newPost
-    .save()
-    .then(post => {
-      req.flash("success_msg", "Post submitted");
-      res.redirect("/");
-    })
-    .catch(err => {
-      console.log(err);
-      return;
-    });
-});
+//   newPost
+//     .save()
+//     .then(post => {
+//       req.flash("success_msg", "Post submitted");
+//       res.redirect("/");
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       return;
+//     });
+// });
 
 // Edit Post Route
 router.get("/edit/:id", ensureAuthenticated, (req, res) => {

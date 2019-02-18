@@ -34,11 +34,57 @@ const User = mongoose.model("users");
 require("../models/Image");
 const Image = mongoose.model("images");
 
+// Process Add Post Form
+router.post(
+  "/post",
+  ensureAuthenticated,
+  upload.single("image"),
+  (req, res) => {
+    const newPost = new Post({
+      title: req.body.title,
+      category: req.body.category,
+      body: req.body.body,
+      user: req.user.id
+    });
+    if (req.file) {
+      cloudinary.uploader.upload(req.file.path, result => {
+        req.body.image = result.secure_url;
+        newPost.image = req.body.image;
+
+        newPost
+          .save()
+          .then(post => {
+            req.flash("success_msg", "Post submitted");
+            res.redirect("/");
+          })
+          .catch(err => {
+            console.log(err);
+            return;
+          });
+      });
+    } else {
+      newPost
+        .save()
+        .then(post => {
+          req.flash("success_msg", "Post submitted");
+          res.redirect("/");
+        })
+        .catch(err => {
+          console.log(err);
+          return;
+        });
+    }
+  }
+);
+
 router.post(
   "/image",
   ensureAuthenticated,
   upload.single("image"),
   (req, res) => {
+    if (!req.file) {
+      return res.redirect("/");
+    }
     cloudinary.uploader.upload(req.file.path, result => {
       req.body.image = result.secure_url;
 
@@ -47,7 +93,7 @@ router.post(
       newImage
         .save()
         .then(image => {
-          res.render("image", { image: image });
+          res.render("user/profile", { image: image });
         })
         .catch(err => {
           req.flash("error_msg", "Something went wrong");
@@ -58,78 +104,3 @@ router.post(
 );
 
 module.exports = router;
-
-// Set The Storage Engine
-// const storage = multer.diskStorage({
-//   destination: "./public/uploads/",
-//   filename: function(req, file, cb) {
-//     cb(
-//       null,
-//       file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-//     );
-//   }
-// });
-
-// Init Upload
-// const upload = multer({
-//   storage: storage,
-//   limits: { fileSize: 3000000 },
-//   fileFilter: function(req, file, cb) {
-//     checkFileType(file, cb);
-//   }
-// }).single("imageFile");
-
-// // Check File Type
-// function checkFileType(file, cb) {
-//   // Allowed ext
-//   const filetypes = /jpeg|jpg|png|gif/;
-//   // Check ext
-//   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-//   // Check mime
-//   const mimetype = filetypes.test(file.mimetype);
-
-//   if (mimetype && extname) {
-//     return cb(null, true);
-//   } else {
-//     cb("Error: Images Only!");
-//   }
-// }
-
-// router.get("/", (req, res) => res.render("upload"));
-
-// router.post("/image", parser.single("image"), (req, res) => {
-//   console.log(req.file); // to see what is returned to you
-//   const image = {};
-//   image.url = req.file.url;
-//   image.id = req.file.public_id;
-//   Image.create(image) // save image information in database
-//     .then(newImage => res.json(newImage))
-//     .catch(err => console.log(err));
-// });
-
-// router.post("/", ensureAuthenticated, (req, res) => {
-//   upload(req, res, err => {
-//     if (err) {
-//       console.log(err);
-//       res.render("user/profile");
-//     } else {
-//       if (req.file == undefined) {
-//         req.flash("error_msg", "No File Selected");
-//         res.render("user/profile");
-//       } else {
-//         // res.render("upload", {
-//         //   file: `uploads/${req.file.filename}`
-//         // });
-//         // Save fileto current user
-//         User.findOne({ _id: req.user.id }).then(user => {
-//           user.image = req.file.filename;
-
-//           user.save().then(user => {
-//             req.flash("success_msg", "Image Uploaded");
-//             res.redirect("/user/profile");
-//           });
-//         });
-//       }
-//     }
-//   });
-// });
