@@ -56,15 +56,13 @@ module.exports = {
   arrLength: function(arr) {
     return arr.length;
   },
-  postsPerCategory: function(category) {
-    let categoryArr = [];
-    Post.find().then(posts => {
-      for (let post of posts) {
-        if (post.category === category) {
-          categoryArr.push(post.category);
-        }
-      }
-      return categoryArr.length;
-    });
+  currentUserPost: function(postUser, loggedUser, postId) {
+    if (postUser === loggedUser) {
+      return `<a class="btn btn-outline-info mr-2" href="/post/edit/${postId}">
+        <i class="fas fa-pencil-alt"></i> Edit Post
+      </a>`;
+    } else {
+      return;
+    }
   }
 };

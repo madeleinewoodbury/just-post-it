@@ -50,7 +50,9 @@ router.get("/categories", ensureAuthenticated, (req, res) => {
     .populate("users")
     .sort({ category: "asc" })
     .then(posts => {
-      res.render("index/categories", { posts: posts });
+      res.render("index/categories", {
+        posts: posts
+      });
     });
 });
 

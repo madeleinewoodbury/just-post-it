@@ -29,7 +29,7 @@ const {
   numberOfCategories,
   registeredUsers,
   arrLength,
-  postsPerCategory
+  currentUserPost
 } = require("./helpers/hbs");
 
 const db = require("./config/database");
@@ -57,7 +57,7 @@ app.engine(
       numberOfCategories: numberOfCategories,
       registeredUsers: registeredUsers,
       arrLength: arrLength,
-      postsPerCategory: postsPerCategory
+      currentUserPost: currentUserPost
     },
     defaultLayout: "main"
   })
