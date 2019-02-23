@@ -78,28 +78,31 @@ router.post(
   }
 );
 
-router.post(
-  "/image",
+router.put(
+  "/profile/image",
   ensureAuthenticated,
   upload.single("image"),
   (req, res) => {
     if (!req.file) {
       return res.redirect("/");
     }
-    cloudinary.uploader.upload(req.file.path, result => {
-      req.body.image = result.secure_url;
 
-      const newImage = new Image({ path: req.body.image });
+    User.findOne({ _id: req.user.id }).then(user => {
+      cloudinary.uploader.upload(req.file.path, result => {
+        req.body.image = result.secure_url;
 
-      newImage
-        .save()
-        .then(image => {
-          res.render("user/profile", { image: image });
-        })
-        .catch(err => {
-          req.flash("error_msg", "Something went wrong");
-          return res.redirect("/");
-        });
+        // Save new image to user
+        user.image = req.body.image;
+        user
+          .save()
+          .then(user => {
+            res.redirect("/user/profile");
+          })
+          .catch(err => {
+            req.flash("error_msg", "Something went wrong");
+            return res.redirect("/");
+          });
+      });
     });
   }
 );

@@ -41,7 +41,9 @@ router.get("/", (req, res) => {
 
 // Users Route
 router.get("/users", ensureAuthenticated, (req, res) => {
-  res.render("index/users");
+  User.find().then(users => {
+    res.render("index/users", { users: users });
+  });
 });
 
 // Categories Route
@@ -54,6 +56,18 @@ router.get("/categories", ensureAuthenticated, (req, res) => {
         posts: posts
       });
     });
+});
+
+// Details Route
+router.get("/details/:id", ensureAuthenticated, (req, res) => {
+  const userId = req.params.id;
+  User.findOne({ _id: userId }).then(userDetails => {
+    Post.find({ user: userId })
+      .sort({ date: "desc" })
+      .then(posts => {
+        res.render("index/details", { userDetails: userDetails, posts: posts });
+      });
+  });
 });
 
 module.exports = router;

@@ -65,7 +65,7 @@
       </div>
       <div class="col-md-3">
         <h3>Your Avatar</h3>
-        <img src="{{image.path}}" alt="avatar" class="d-block img-fluid mb-3" />
+        <img src="{{user.image}}" alt="avatar" class="d-block img-fluid mb-3" />
         <a href="#" data-toggle="modal" data-target="#editImageModal" class="btn btn-primary btn-block">Edit Image</a>
         <a href="#" class="btn btn-danger btn-block">Delete Image</a>
       </div>
@@ -84,17 +84,19 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/upload/image" method="post" enctype="multipart/form-data">
-          <div class="custom-file mb-3">
-            <input type="file" name="image" id="file" class="custom-file-input">
-            <label for="file" class="custom-file-label">Choose Image</label>
-            <small class="form-text text-muted">Max size 3MB</small>
-          </div>
-          <input type="submit" value="Save Changes" class="btn btn-primary">
-          <button class="btn btn-secondary ml-2" data-dismiss="modal">
-            Go Back
-          </button>
-        </form>
+        <form action="/upload/profile/image?_method=PUT" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="_method" value="put">
+          <form action="/upload/image" method="post" enctype="multipart/form-data">
+            <div class="custom-file mb-3">
+              <input type="file" name="image" id="file" class="custom-file-input">
+              <label for="file" class="custom-file-label">Choose Image</label>
+              <small class="form-text text-muted">Max size 3MB</small>
+            </div>
+            <input type="submit" value="Save Changes" class="btn btn-primary">
+            <button class="btn btn-secondary ml-2" data-dismiss="modal">
+              Go Back
+            </button>
+          </form>
       </div>
     </div>
   </div>

@@ -10,7 +10,7 @@
 </header>
 
 <!-- SEARCH -->
-<section id="search" class="py-4 mb-4 bg-light">
+<section id="search" class="py-2 mb-4 bg-light">
   <div class="container">
     <div class="row">
       <div class="col-md-6 ml-auto">
@@ -44,36 +44,18 @@
               </tr>
             </thead>
             <tbody>
+              {{#each users}}
               <tr>
-                <td>1</td>
-                <td>John Doe</td>
-                <td>jdoe@email.com</td>
+                <td>{{postIndex @index}}</td>
+                <td>{{name}}</td>
+                <td>{{email}}</td>
                 <td>
-                  <a href="details.html" class="btn btn-secondary">
+                  <a href="/details/{{id}}" class="btn btn-secondary">
                     <i class="fas fa-angle-double-right"></i> Details
                   </a>
                 </td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>Miranda White</td>
-                <td>miraw@gmail.com</td>
-                <td>
-                  <a href="details.html" class="btn btn-secondary">
-                    <i class="fas fa-angle-double-right"></i> Details
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Paul Fink</td>
-                <td>fink182@yahoo.com</td>
-                <td>
-                  <a href="details.html" class="btn btn-secondary">
-                    <i class="fas fa-angle-double-right"></i> Details
-                  </a>
-                </td>
-              </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>
