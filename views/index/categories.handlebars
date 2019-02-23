@@ -39,51 +39,23 @@
               <tr>
                 <th>#</th>
                 <th>Categories</th>
-                <th>Date</th>
+                <th>Date Posted</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
+              {{#each posts}}
               <tr>
-                <td>1</td>
-                <td>Web Development</td>
-                <td>July 14 2018</td>
+                <td>{{postIndex @index}}</td>
+                <td>{{category}}</td>
+                <td>{{formatDate date 'MM/DD/YY'}}</td>
                 <td>
-                  <a href="details.html" class="btn btn-secondary">
-                    <i class="fas fa-angle-double-right"></i> Details
+                  <a href="/post/show/{{id}}" class="btn btn-secondary">
+                    <i class="fas fa-angle-double-right"></i> View
                   </a>
                 </td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>Tech Gadgets</td>
-                <td>July 20 2018</td>
-                <td>
-                  <a href="details.html" class="btn btn-secondary">
-                    <i class="fas fa-angle-double-right"></i> Details
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Health & wELLNESS</td>
-                <td>August 2 2018</td>
-                <td>
-                  <a href="details.html" class="btn btn-secondary">
-                    <i class="fas fa-angle-double-right"></i> Details
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Business</td>
-                <td>August 12 2018</td>
-                <td>
-                  <a href="details.html" class="btn btn-secondary">
-                    <i class="fas fa-angle-double-right"></i> Details
-                  </a>
-                </td>
-              </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>

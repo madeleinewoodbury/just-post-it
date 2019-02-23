@@ -44,14 +44,14 @@ router.get("/users", ensureAuthenticated, (req, res) => {
   res.render("index/users");
 });
 
-// Posts Route
-router.get("/posts", ensureAuthenticated, (req, res) => {
-  res.render("index/posts");
-});
-
 // Categories Route
 router.get("/categories", ensureAuthenticated, (req, res) => {
-  res.render("index/categories");
+  Post.find()
+    .populate("users")
+    .sort({ category: "asc" })
+    .then(posts => {
+      res.render("index/categories", { posts: posts });
+    });
 });
 
 module.exports = router;

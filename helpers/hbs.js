@@ -2,6 +2,8 @@ const moment = require("moment");
 const mongoose = require("mongoose");
 require("../models/User");
 const User = mongoose.model("users");
+require("../models/Post");
+const Post = mongoose.model("posts");
 
 module.exports = {
   formatDate: function(date, format) {
@@ -53,5 +55,16 @@ module.exports = {
   },
   arrLength: function(arr) {
     return arr.length;
+  },
+  postsPerCategory: function(category) {
+    let categoryArr = [];
+    Post.find().then(posts => {
+      for (let post of posts) {
+        if (post.category === category) {
+          categoryArr.push(post.category);
+        }
+      }
+      return categoryArr.length;
+    });
   }
 };
