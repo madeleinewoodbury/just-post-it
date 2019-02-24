@@ -20,32 +20,6 @@ router.get("/show/:id", ensureAuthenticated, (req, res) => {
     .catch(err => console.log(err));
 });
 
-// Process Add Post Form
-// router.post("/add", ensureAuthenticated, (req, res) => {
-//   const newPost = new Post({
-//     title: req.body.title,
-//     category: req.body.category,
-//     image: req.body.image,
-//     body: req.body.body,
-//     user: req.user.id
-//   });
-
-//   if (req.body.image) {
-//     newPost.image = req.body.image;
-//   }
-
-//   newPost
-//     .save()
-//     .then(post => {
-//       req.flash("success_msg", "Post submitted");
-//       res.redirect("/");
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       return;
-//     });
-// });
-
 // Edit Post Route
 router.get("/edit/:id", ensureAuthenticated, (req, res) => {
   Post.findOne({ _id: req.params.id })
@@ -89,6 +63,25 @@ router.get("/public", ensureAuthenticated, (req, res) => {
     .populate("user")
     .sort({ date: "desc" })
     .then(posts => {
+      res.render("index/posts", { posts: posts });
+    });
+});
+
+// Search for post route
+router.post("/search", ensureAuthenticated, (req, res) => {
+  let searchValue = req.body.search;
+  searchValue = searchValue.charAt(0).toUpperCase() + searchValue.slice(1);
+  let posts = [];
+
+  Post.find()
+    .populate("user")
+    .sort({ date: "desc" })
+    .then(result => {
+      for (post of result) {
+        if (post.title.includes(searchValue)) {
+          posts.push(post);
+        }
+      }
       res.render("index/posts", { posts: posts });
     });
 });
