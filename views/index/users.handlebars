@@ -14,12 +14,14 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 ml-auto">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search Users..." />
-          <div class="input-group-append">
-            <button class="btn btn-danger">Search</button>
+        <form action="/user/search" method="post">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search Users..." name="search" />
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-danger">Search</button>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>

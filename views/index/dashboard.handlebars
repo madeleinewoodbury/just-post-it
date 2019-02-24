@@ -18,12 +18,14 @@
         </a>
       </div>
       <div class="col-md-6">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search Posts..." />
-          <div class="input-group-append">
-            <button class="btn btn-success">Search</button>
+        <form action="/dashboard/search" method="post">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search Posts..." name="search" />
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-success">Search</button>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>

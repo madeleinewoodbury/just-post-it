@@ -39,6 +39,25 @@ router.get("/", (req, res) => {
   }
 });
 
+// Search for post route
+router.post("/dashboard/search", ensureAuthenticated, (req, res) => {
+  let searchValue = req.body.search;
+  searchValue = searchValue.charAt(0).toUpperCase() + searchValue.slice(1);
+  let posts = [];
+
+  Post.find({ user: req.user.id })
+    .populate("user")
+    .sort({ date: "desc" })
+    .then(result => {
+      for (post of result) {
+        if (post.title.includes(searchValue)) {
+          posts.push(post);
+        }
+      }
+      res.render("index/dashboard", { posts: posts, Categories: Categories });
+    });
+});
+
 // Users Route
 router.get("/users", ensureAuthenticated, (req, res) => {
   User.find().then(users => {
@@ -49,7 +68,7 @@ router.get("/users", ensureAuthenticated, (req, res) => {
 // Categories Route
 router.get("/categories", ensureAuthenticated, (req, res) => {
   Post.find()
-    .populate("users")
+    .populate("user")
     .sort({ category: "asc" })
     .then(posts => {
       res.render("index/categories", {

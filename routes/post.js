@@ -86,4 +86,23 @@ router.post("/search", ensureAuthenticated, (req, res) => {
     });
 });
 
+// Search for categories route
+router.post("/search/categories", ensureAuthenticated, (req, res) => {
+  let searchValue = req.body.search;
+  searchValue = searchValue.charAt(0).toUpperCase() + searchValue.slice(1);
+  let posts = [];
+
+  Post.find()
+    .populate("user")
+    .sort({ date: "desc" })
+    .then(result => {
+      for (post of result) {
+        if (post.category.includes(searchValue)) {
+          posts.push(post);
+        }
+      }
+      res.render("index/categories", { posts: posts });
+    });
+});
+
 module.exports = router;

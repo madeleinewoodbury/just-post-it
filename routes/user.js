@@ -117,4 +117,22 @@ router.put("/profile/edit", ensureAuthenticated, (req, res) => {
   });
 });
 
+// Search for users route
+router.post("/search", ensureAuthenticated, (req, res) => {
+  let searchValue = req.body.search;
+  searchValue = searchValue.charAt(0).toUpperCase() + searchValue.slice(1);
+  let users = [];
+
+  User.find()
+    .sort({ name: "asc" })
+    .then(result => {
+      for (user of result) {
+        if (user.name.includes(searchValue)) {
+          users.push(user);
+        }
+      }
+      res.render("index/users", { users: users });
+    });
+});
+
 module.exports = router;

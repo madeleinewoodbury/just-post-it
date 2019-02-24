@@ -14,12 +14,14 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 ml-auto">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search Categories..." />
-          <div class="input-group-append">
-            <button class="btn btn-warning">Search</button>
+        <form action="/post/search/categories" method="post">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search Categories..." name="search" />
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-warning">Search</button>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -39,6 +41,8 @@
               <tr>
                 <th>#</th>
                 <th>Categories</th>
+                <th>Title</th>
+                <th>Posted By</th>
                 <th>Date Posted</th>
                 <th></th>
               </tr>
@@ -48,6 +52,8 @@
               <tr>
                 <td>{{postIndex @index}}</td>
                 <td>{{category}}</td>
+                <td>{{title}}</td>
+                <td>{{user.name}}</td>
                 <td>{{formatDate date 'MM/DD/YY'}}</td>
                 <td>
                   <a href="/post/show/{{id}}" class="btn btn-secondary">
