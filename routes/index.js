@@ -61,7 +61,8 @@ router.post("/dashboard/search", ensureAuthenticated, (req, res) => {
 // Users Route
 router.get("/users", ensureAuthenticated, (req, res) => {
   User.find().then(users => {
-    res.render("index/users", { users: users });
+    const numOfUsers = users.length;
+    res.render("index/users", { users: users, numOfUsers: numOfUsers });
   });
 });
 
