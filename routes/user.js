@@ -117,6 +117,65 @@ router.put("/profile/edit", ensureAuthenticated, (req, res) => {
   });
 });
 
+// Update User Password GET ROUTE
+router.post("/profile/password", ensureAuthenticated, (req, res, next) => {
+  if (req.user.email !== req.body.email) {
+    req.flash("error_msg", "Incorrect Email");
+    res.redirect("/user/profile");
+  } else {
+    passport.authenticate("local", {
+      successRedirect: "/user/profile/reset",
+      failureRedirect: "/user/profile",
+      failureFlash: true
+    })(req, res, next);
+  }
+});
+
+router.get("/profile/reset", ensureAuthenticated, (req, res) => {
+  res.render("user/reset");
+});
+
+// Update User Password PUT ROUTE
+router.put("/profile/reset", ensureAuthenticated, (req, res) => {
+  // Server side validation
+  let errors = [];
+
+  if (!req.body.password) {
+    errors.push({ text: "Please add a password" });
+  } else if (req.body.password.length < 5) {
+    errors.push({ text: "Password must be at least 5 characters" });
+  } else if (req.body.password !== req.body.password2) {
+    errors.push({ text: "Passwords needs to match" });
+  }
+
+  if (errors.length > 0) {
+    res.render("user/reset");
+  } else {
+    User.findOne({ email: req.user.email }).then(user => {
+      // Reset Password
+      user.password = req.body.password;
+
+      // Encrypt passord with bcrypt
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(user.password, salt, (err, hash) => {
+          if (err) throw err;
+          user.password = hash;
+          user
+            .save()
+            .then(user => {
+              req.flash("success_msg", "Password has been reset");
+              res.redirect("/user/login");
+            })
+            .catch(err => {
+              console.log(err);
+              return;
+            });
+        });
+      });
+    });
+  }
+});
+
 // Search for users route
 router.post("/search", ensureAuthenticated, (req, res) => {
   let searchValue = req.body.search;

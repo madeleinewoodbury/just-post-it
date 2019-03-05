@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const { ensureAuthenticated } = require("../helpers/auth");
 const Categories = require("../models/Category");
 const cloudinary = require("cloudinary");
-// const cloudinaryStorage = require("multer-storage-cloudinary");
 const multer = require("multer");
 const storage = multer.diskStorage({
   filename: function(req, file, callback) {
@@ -32,8 +31,6 @@ require("../models/Post");
 const Post = mongoose.model("posts");
 require("../models/User");
 const User = mongoose.model("users");
-require("../models/Image");
-const Image = mongoose.model("images");
 
 // Process Add Post Form
 router.post(
