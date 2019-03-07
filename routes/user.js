@@ -8,6 +8,8 @@ const { ensureAuthenticated } = require("../helpers/auth");
 // Load User Model
 require("../models/User");
 const User = mongoose.model("users");
+require("../models/Post");
+const Post = mongoose.model("posts");
 
 // Register Route
 router.get("/register", (req, res) => {
@@ -191,6 +193,27 @@ router.post("/search", ensureAuthenticated, (req, res) => {
         }
       }
       res.render("index/users", { users: users });
+    });
+});
+
+// Delete User Account
+router.delete("/delete", ensureAuthenticated, (req, res) => {
+  // Find all posts by user and delete from database
+  Post.deleteMany({ user: req.user.id })
+    .then(() => {
+      // Delete user from database
+      User.deleteOne({ _id: req.user.id })
+        .then(() => {
+          req.flash("success_msg", "Account successfully deleted");
+          res.redirect("/user/login");
+        })
+        .catch(err => {
+          req.flash("err_msg", "Something went wrong");
+          res.redirect("/");
+        });
+    })
+    .catch(err => {
+      console.log(err);
     });
 });
 
