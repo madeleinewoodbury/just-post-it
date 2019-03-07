@@ -75,6 +75,7 @@ router.post(
   }
 );
 
+// Edit Profile Image Route
 router.put(
   "/profile/image",
   ensureAuthenticated,
@@ -103,6 +104,25 @@ router.put(
     });
   }
 );
+
+// Delete Profile Image Route
+router.put("/profile/image/delete", ensureAuthenticated, (req, res) => {
+  User.findOne({ _id: req.user.id }).then(user => {
+    // Change avatar to default image
+    user.image =
+      "https://sohe.wisc.edu/wordpress/wp-content/uploads/Male-Avatar.png";
+
+    user
+      .save()
+      .then(user => {
+        res.redirect("/user/profile");
+      })
+      .catch(err => {
+        req.flash("error_msg", "Something went wrong");
+        return res.redirect("/");
+      });
+  });
+});
 
 // Edit Post Image Process Route
 router.put(
