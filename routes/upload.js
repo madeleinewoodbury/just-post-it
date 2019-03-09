@@ -154,6 +154,7 @@ router.put(
   }
 );
 
+// Delete Image
 router.delete("/post/image/:id", ensureAuthenticated, (req, res) => {
   Post.findById(req.params.id, async function(err, post) {
     cloudinary.v2.api.delete_resources(post.image, (err, result) => {

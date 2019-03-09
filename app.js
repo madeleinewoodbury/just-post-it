@@ -109,5 +109,5 @@ app.use("/user", user);
 app.use("/post", post);
 app.use("/upload", upload);
 
-const port = 5500;
+const port = process.env.PORT || 5500;
 app.listen(port, () => console.log(`Server started on port ${port}...`));
