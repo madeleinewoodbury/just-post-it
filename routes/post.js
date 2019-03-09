@@ -23,11 +23,17 @@ router.get("/show/:id", ensureAuthenticated, (req, res) => {
 // Edit Post Route
 router.get("/edit/:id", ensureAuthenticated, (req, res) => {
   Post.findOne({ _id: req.params.id })
+    .populate("user")
     .then(post => {
-      res.render("posts/edit", {
-        post: post,
-        Categories: Categories
-      });
+      if (post.user.id === req.user.id) {
+        res.render("posts/edit", {
+          post: post,
+          Categories: Categories
+        });
+      } else {
+        req.flash("error_msg", "You are not authorized");
+        res.redirect("/");
+      }
     })
     .catch(err => {
       console.log(err);
