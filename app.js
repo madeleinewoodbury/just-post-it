@@ -32,8 +32,7 @@ const {
   currentUserPost
 } = require("./helpers/hbs");
 
-const db = require("./config/database");
-// const mongoURI = "mongodb://localhost/blogen-dev";
+const db = require("./config/keys");
 mongoose
   .connect(db.mongoURI, {
     useNewUrlParser: true

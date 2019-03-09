@@ -10,6 +10,7 @@ const storage = multer.diskStorage({
     callback(null, Date.now() + file.originalname);
   }
 });
+const keys = require("../config/keys");
 
 const imageFilter = function(req, file, cb) {
   // accept image files only
@@ -21,9 +22,9 @@ const imageFilter = function(req, file, cb) {
 const upload = multer({ storage: storage, fileFilter: imageFilter });
 
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET
+  cloud_name: keys.cloudName,
+  api_key: keys.cloudinaryApiKey,
+  api_secret: keys.cloudinaryApiSecret
 });
 
 // Load Post Model
