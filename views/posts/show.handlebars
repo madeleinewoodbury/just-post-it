@@ -16,16 +16,14 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-
-        {{!-- <a href="/" class="btn btn-light btn-block">
-          <i class="fas fa-arrow-left"></i> Back to Dashboard
-        </a> --}}
+        <a href="#" class="btn btn-light btn-block">
+          <i class="fas fa-arrow-left"></i> Go Back
+        </a>
       </div>
       <div class="col-md-3 ml-auto">
         {{{currentUserPost post.user.id user.id post.id}}}
       </div>
     </div>
-  </div>
 </section>
 
 <!-- SHOW POST -->
@@ -39,13 +37,17 @@
           {{/if}}
           <div class="card">
             <div class="card-header">
-              <h4>By: {{post.user.name}}</h4>
+              <div class="d-flex justify-content-between">
+                <h4>By: {{post.user.name}}</h4>
+                <a href="#" class="btn btn-info" data-toggle="modal" data-target="#addCommentModal">Add Comment</a>
+              </div>
               <small class="text-muted">{{formatDate post.date 'MMMM Do YYYY'}}</small>
             </div>
 
             <div class="card-body">
               <p>{{stripTags post.body}}</p>
             </div>
+
           </div>
         </div>
         {{#if post.image}}
@@ -57,3 +59,65 @@
     </div>
   </div>
 </section>
+
+{{!-- Comments --}}
+{{#if post.comments}}
+<section id="comments" class="mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header bg-info text-white">
+            <h4>Latest Comments</h4>
+          </div>
+          <table class="table table-striped">
+            <tbody>
+              {{#each post.comments}}
+              <tr>
+                <td>
+                  <div class="d-flex flex-row align-items-center">
+                    <div style="width: 50px;">
+                      <img src="{{commentUser.image}}" class="img-fluid" style="border-radius: 50%;">
+                    </div>
+                    <div class="ml-2">
+                      <span class="h5">{{commentUser.name}} </span><br>
+                      <span class="text-muted">{{formatDate commentDate 'MMMM Do YYYY'}}</span>
+                    </div>
+                  </div>
+                  <p class="mt-2">{{commentBody}}</p>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{/if}}
+
+<!-- Add Comment Modal -->
+<div class=" modal fade" id="addCommentModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title">Add Comment</h5>
+        <button class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/post/comment/{{post.id}}" method="post">
+          <div class="form-group">
+            <textarea name="commentBody" class="form-control"></textarea>
+          </div>
+          <input type="submit" value="Submit" class="btn btn-info">
+          <button class="btn btn-secondary ml-2" data-dismiss="modal">
+            Go Back
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

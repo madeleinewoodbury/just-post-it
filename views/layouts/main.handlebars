@@ -20,7 +20,7 @@
   {{> _errors}}
   {{{body}}}
 
-  {{!-- {{> _footer}} --}}
+  {{> _footer}}
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
@@ -35,7 +35,9 @@
     $("#year").text(new Date().getFullYear());
 
     // Replace editor
-    CKEDITOR.replace("editor");
+    CKEDITOR.replace("editor", {
+      plugins: 'wysiwygarea, toolbar, basicstyles'
+    });
   </script>
 </body>
 

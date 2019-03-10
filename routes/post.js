@@ -14,6 +14,7 @@ const User = mongoose.model("users");
 router.get("/show/:id", ensureAuthenticated, (req, res) => {
   Post.findOne({ _id: req.params.id })
     .populate("user")
+    .populate("comments.commentUser")
     .then(post => {
       res.render("posts/show", { post: post });
     })
@@ -90,6 +91,22 @@ router.post("/search", ensureAuthenticated, (req, res) => {
       }
       res.render("index/posts", { posts: posts });
     });
+});
+
+// Post comment Route
+router.post("/comment/:id", ensureAuthenticated, (req, res) => {
+  Post.findOne({ _id: req.params.id }).then(post => {
+    const newComment = {
+      commentBody: req.body.commentBody,
+      commentUser: req.user.id
+    };
+
+    // Add to comments array
+    post.comments.unshift(newComment);
+    post.save().then(post => {
+      res.redirect(`/post/show/${post.id}`);
+    });
+  });
 });
 
 // Search for categories route
