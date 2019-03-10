@@ -1,5 +1,5 @@
 {
-  "name": "blogen",
+  "name": "just-post-it",
   "version": "1.0.0",
   "description": "A simple CRUD application site where users can post blogs and share them with others",
   "main": "app.js",

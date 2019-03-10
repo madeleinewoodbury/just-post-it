@@ -3,13 +3,31 @@ const categoriesList = [
     name: "Travel"
   },
   {
+    name: "Wildlife"
+  },
+  {
     name: "Food"
+  },
+  {
+    name: "Health & Wellness"
   },
   {
     name: "Fitness"
   },
   {
-    name: "Web Devlopment"
+    name: "Technology"
+  },
+  {
+    name: "Web Development"
+  },
+  {
+    name: "Business"
+  },
+  {
+    name: "Film"
+  },
+  {
+    name: "Photography"
   },
   {
     name: "Other"
